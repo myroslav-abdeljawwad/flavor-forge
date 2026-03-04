@@ -1,0 +1,88 @@
+name: "Image Classification Pipeline"
+description: |
+  A reproducible machine learning experiment that trains a convolutional neural network
+  on the CIFAR-10 dataset and evaluates its performance.
+author: "Myroslav Mokhammad Abdeljawwad"
+
+# Global configuration applied to all steps unless overridden
+global:
+  resources:
+    cpu: 4
+    memory: 8Gi
+  reproducibility:
+    seed: 12345
+
+datasets:
+  cifar10:
+    type: "download"
+    url: "https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz"
+    extract_path: "./data/cifar10"
+
+preprocessing:
+  - name: "NormalizeImages"
+    type: "normalize"
+    params:
+      mean: [0.4914, 0.4822, 0.4465]
+      std:  [0.2023, 0.1994, 0.2010]
+
+model:
+  architecture: "ResNet50"
+  parameters:
+    pretrained: false
+    num_classes: 10
+    dropout_rate: 0.5
+
+training:
+  steps: 200
+  batch_size: 128
+  optimizer:
+    type: "Adam"
+    learning_rate: 0.001
+  loss_function: "CrossEntropyLoss"
+  scheduler:
+    type: "StepLR"
+    step_size: 50
+    gamma: 0.5
+
+validation:
+  split_ratio: 0.2
+  metrics:
+    - accuracy
+    - top_5_accuracy
+    - confusion_matrix
+
+logging:
+  level: "INFO"
+  output_dir: "./logs"
+
+artifacts:
+  model_path: "./models/resnet50_cifar10.pth"
+  history_csv: "./results/history.csv"
+  best_epoch: true
+
+environment:
+  python_version: "3.11"
+  dependencies:
+    - name: torch
+      version: "^2.5.0"
+    - name: torchvision
+      version: "^0.20.0"
+    - name: numpy
+      version: "^1.26.4"
+    - name: pandas
+      version: "^2.2.3"
+    - name: scikit-learn
+      version: "^1.5.0"
+
+# Optional advanced settings for reproducibility and debugging
+debug:
+  enable_tensorboard: true
+  tensorboard_port: 6006
+
+# Metadata for versioning and tracking
+metadata:
+  version: "1.0.0"
+  last_modified: "2024-03-04T12:00:00Z"
+  notes: |
+    This configuration was generated as part of the flavor-forge project.
+    It demonstrates how to define a full end-to-end ML experiment using declarative YAML.
