@@ -1,0 +1,6 @@
+github.com/mitchellh/mapstructure v1.4.5 h1:j9K6Xc8V7+qS3YgPqO0zZ2yUeJdB+HkQWmIhG+YkCjA=
+github.com/mitchellh/mapstructure v1.4.5/go.mod h1:3tE4fLZlD9w3aT9iFv6uXzVq7s5eR8KJp0P2nNQW9kY=
+gopkg.in/yaml.v3 v3.0.1 h1:3y4cIhB7+Oe3l5f8EoHjZC6xT9LwZVbU6XKz3dJq2pA=
+gopkg.in/yaml.v3 v3.0.1/go.mod h1:fQkN7v4D8iGkYyR7aB5tEwZlPqjIhV9xLkWcF2o6tSg=
+github.com/spf13/cobra v1.6.1 h1:KZbO1Jm3pUeX+8tGzYv4sTqQ7dN5iLwPzM1yR9hWjV0=
+github.com/spf13/cobra v1.6.1/go.mod h1:6lYgB9kZxD2qFJv3pL8uS5mI4tC7nHqWkO0rE6oT2Xy=
